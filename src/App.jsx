@@ -12,6 +12,7 @@ import CreatePost from "./components/CreatePost";
 import ChatPage from "./pages/ChatPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import PageLayout from "./PageLayout/PageLayout";
+
 function App() {
   const user = useRecoilValue(userAtom);
   const { pathname } = useLocation();
@@ -35,6 +36,8 @@ function App() {
             path="/update"
             element={user ? <UpdateProfilePage /> : <Navigate to="/auth" />}
           />
+          
+          
 
           <Route
             path="/:username"
