@@ -54,12 +54,13 @@ export default function UpdateProfilePage() {
         showToast("Error", data.error, "error");
         return;
       }
-      showToast("Success", "Profile updated successfully", "success");
+      showToast("Updated", "Profile updated successfully", "info", "left-accent");
       setUser(data);
       localStorage.setItem("user-threads", JSON.stringify(data));
     navigate(`/${user.username}`);
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
     } finally {
       setUpdating(false);
     }

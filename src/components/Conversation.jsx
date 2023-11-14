@@ -24,7 +24,7 @@ const Conversation = ({ conversation, isOnline }) => {
   );
   const colorMode = useColorMode();
 
-  console.log("selectedConverstion", selectedConversation);
+  // console.log("selectedConverstion", selectedConversation);
   return (
     <Flex
       gap={4}
@@ -73,7 +73,7 @@ const Conversation = ({ conversation, isOnline }) => {
         </Text>
         <Text fontSize={"sm"} display={"flex"} alignItems={"center"} gap={1}>
           {currentUser._id === lastMessage.sender ? (
-            <Box color={lastMessage.seen ? "blue.400" : ""}>
+            <Box color={lastMessage.seen ? "pink.400" : ""}>
               <BsCheck2All size={16} />
             </Box>
           ) : (

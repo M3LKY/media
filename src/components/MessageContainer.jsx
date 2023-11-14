@@ -104,12 +104,14 @@ const MessageContainer = () => {
         const res = await fetch(`/api/messages/${selectedConversation.userId}`);
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
         setMessages(data);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
       } finally {
         setLoadingMessages(false);
       }

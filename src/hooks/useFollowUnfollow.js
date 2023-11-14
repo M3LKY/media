@@ -13,7 +13,7 @@ const useFollowUnfollow = (user) => {
 
   const handleFollowUnfollow = async () => {
     if (!currentUser) {
-      showToast("Error", "Please login to follow", "error");
+      showToast("Error", "Please login to follow", "warning", "left-accent");
       return;
     }
     if (updating) return;
@@ -28,22 +28,24 @@ const useFollowUnfollow = (user) => {
       });
       const data = await res.json();
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "warning", "top-accent");
+
         return;
       }
 
       if (following) {
-        showToast("Success", `Unfollowed ${user.name}`, "success");
+        showToast("Unfollowed", `Unfollowed ${user.name}`, "info", "top-accent");
         user.followers.pop(); // simulate removing from followers
       } else {
-        showToast("Success", `Followed ${user.name}`, "success");
+        showToast("Followed", `Followed ${user.name}`, "info", "top-accent");
         user.followers.push(currentUser?._id); // simulate adding to followers
       }
       setFollowing(!following);
 
       console.log(data);
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
     } finally {
       setUpdating(false);
     }

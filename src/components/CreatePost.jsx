@@ -57,6 +57,10 @@ const CreatePost = () => {
   const handleCreatePost = async () => {
     setLoading(true);
     try {
+      if (postText === "") {
+        showToast("Error", "Is Empty", "warning", "top-accent");
+        return;
+      }
       const res = await fetch("/api/posts/create", {
         method: "POST",
         headers: {
@@ -71,10 +75,17 @@ const CreatePost = () => {
 
       const data = await res.json();
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "warning", "top-accent");
+
         return;
       }
-      showToast("Success", "Post created successfully", "success");
+      showToast(
+        "Posted",
+        "Post created successfully",
+        "success",
+        "left-accent"
+      );
+
       if (username === user.username) {
         setPosts([data, ...posts]);
       }
@@ -82,7 +93,12 @@ const CreatePost = () => {
       setPostText("");
       setImgUrl("");
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setLoading(false);
     }

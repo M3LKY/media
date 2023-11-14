@@ -15,12 +15,14 @@ const SuggestedUsers = () => {
         const res = await fetch("/api/users/suggested");
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
         setSuggestedUsers(data);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
       } finally {
         setLoading(false);
       }

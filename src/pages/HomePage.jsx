@@ -18,12 +18,14 @@ const HomePage = () => {
         const res = await fetch("/api/posts/feed");
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
         setPosts(data);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
       } finally {
         setLoading(false);
       }

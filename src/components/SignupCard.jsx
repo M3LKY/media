@@ -46,15 +46,16 @@ export default function SignupCard() {
       const data = await res.json();
 
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "error", "left-accent");
         return;
       }
 
       localStorage.setItem("user-threads", JSON.stringify(data));
       setUser(data);
       setAuthScreen("login")
+      showToast("User Created", "User Created successfully", "success", "subtle");
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast("Error", error, "error", "left-accent");
     }
   };
 

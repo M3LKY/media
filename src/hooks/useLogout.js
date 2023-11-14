@@ -17,14 +17,16 @@ const useLogout = () => {
       const data = await res.json();
 
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "warning", "top-accent");
+
         return;
       }
 
       localStorage.removeItem("user-threads");
       setUser(null);
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
     }
   };
 

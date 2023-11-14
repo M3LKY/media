@@ -60,13 +60,15 @@ const ChatPage = () => {
         const res = await fetch("/api/messages/conversations");
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
-        console.log(data);
+        // console.log(data);
         setConversations(data);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
       } finally {
         setLoadingConversations(false);
       }
@@ -82,13 +84,13 @@ const ChatPage = () => {
       const res = await fetch(`/api/users/profile/${searchText}`);
       const searchedUser = await res.json();
       if (searchedUser.error) {
-        showToast("Error", searchedUser.error, "error");
+        showToast("Error", searchedUser.error, "warning", "left-accent");
         return;
       }
 
       const messagingYourself = searchedUser._id === currentUser._id;
       if (messagingYourself) {
-        showToast("Error", "You cannot message yourself", "error");
+        showToast("Error", "You cannot message yourself", "warning", "left-accent");
         return;
       }
 
@@ -123,7 +125,8 @@ const ChatPage = () => {
       };
       setConversations((prevConvs) => [...prevConvs, mockConversation]);
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
     } finally {
       setSearchingUser(false);
     }

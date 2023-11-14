@@ -24,12 +24,14 @@ const Post = ({ post, postedBy }) => {
         const res = await fetch("/api/users/profile/" + postedBy);
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
         setUser(data);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
         setUser(null);
       }
     };
@@ -47,13 +49,13 @@ const Post = ({ post, postedBy }) => {
       });
       const data = await res.json();
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "warning", "top-accent");
         return;
       }
-      showToast("Success", "Post deleted", "success");
+      showToast("Deleted", "Post deleted", "info");
       setPosts(posts.filter((p) => p._id !== post._id));
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
     }
   };
 

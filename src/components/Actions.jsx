@@ -36,7 +36,8 @@ const Actions = ({ post }) => {
       return showToast(
         "Error",
         "You must be logged in to like a post",
-        "error"
+        "warning",
+        "top-accent"
       );
     if (isLiking) return;
     setIsLiking(true);
@@ -48,7 +49,8 @@ const Actions = ({ post }) => {
         },
       });
       const data = await res.json();
-      if (data.error) return showToast("Error", data.error, "error");
+      if (data.error)
+        return showToast("Error", data.error, "warning", "top-accent");
 
       if (!liked) {
         // add the id of the current user to post.likes array
@@ -72,7 +74,12 @@ const Actions = ({ post }) => {
 
       setLiked(!liked);
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setIsLiking(false);
     }
@@ -83,7 +90,8 @@ const Actions = ({ post }) => {
       return showToast(
         "Error",
         "You must be logged in to reply to a post",
-        "error"
+        "warning",
+        "top-accent"
       );
     if (isReplying) return;
     setIsReplying(true);
@@ -96,7 +104,8 @@ const Actions = ({ post }) => {
         body: JSON.stringify({ text: reply }),
       });
       const data = await res.json();
-      if (data.error) return showToast("Error", data.error, "error");
+      if (data.error)
+        return showToast("Error", data.error, "warning", "top-accent");
 
       const updatedPosts = posts.map((p) => {
         if (p._id === post._id) {
@@ -105,11 +114,21 @@ const Actions = ({ post }) => {
         return p;
       });
       setPosts(updatedPosts);
-      showToast("Success", "Reply posted successfully", "success");
+      showToast(
+        "Posted",
+        "Reply posted successfully",
+        "success",
+        "left-accent"
+      );
       onClose();
       setReply("");
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setIsReplying(false);
     }
@@ -181,14 +200,14 @@ const Actions = ({ post }) => {
                 value={reply}
                 onChange={(e) => setReply(e.target.value)}
                 mt={3}
-                border="1px solid pink"
+                border="1px solid gray"
               />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
             <Button
-              colorScheme="pink"
+              colorScheme="gray"
               size={"sm"}
               pb={0.5}
               isLoading={isReplying}
@@ -204,4 +223,3 @@ const Actions = ({ post }) => {
 };
 
 export default Actions;
-

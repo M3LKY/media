@@ -37,12 +37,14 @@ const PostPage = () => {
         const res = await fetch(`/api/posts/${pid}`);
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
         setPosts([data]);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
       }
     };
     getPost();
@@ -57,13 +59,15 @@ const PostPage = () => {
       });
       const data = await res.json();
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "warning", "top-accent");
+
         return;
       }
-      showToast("Success", "Post deleted", "success");
+      showToast("Deleted", "Post deleted", "info");
       navigate(`/${user.username}`);
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
     }
   };
 
@@ -76,7 +80,7 @@ const PostPage = () => {
   }
 
   if (!currentPost) return null;
-  console.log("currentPost", currentPost);
+  // console.log("currentPost", currentPost);
 
   return (
     <Box display="flex" justifyItems="center" alignItems="center" centerContent>

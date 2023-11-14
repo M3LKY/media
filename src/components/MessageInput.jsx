@@ -55,10 +55,11 @@ const MessageInput = ({ setMessages }) => {
       });
       const data = await res.json();
       if (data.error) {
-        showToast("Error", data.error, "error");
+        showToast("Error", data.error, "warning", "top-accent");
+
         return;
       }
-      console.log(data);
+      // console.log(data);
       setMessages((messages) => [...messages, data]);
 
       setConversations((prevConvs) => {
@@ -79,7 +80,8 @@ const MessageInput = ({ setMessages }) => {
       setMessageText("");
       setImgUrl("");
     } catch (error) {
-      showToast("Error", error.message, "error");
+      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
     } finally {
       setIsSending(false);
     }

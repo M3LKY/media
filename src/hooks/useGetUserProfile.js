@@ -14,7 +14,8 @@ const useGetUserProfile = () => {
         const res = await fetch(`/api/users/profile/${username}`);
         const data = await res.json();
         if (data.error) {
-          showToast("Error", data.error, "error");
+          showToast("Error", data.error, "warning", "top-accent");
+
           return;
         }
         if (data.isFrozen) {
@@ -23,7 +24,8 @@ const useGetUserProfile = () => {
         }
         setUser(data);
       } catch (error) {
-        showToast("Error", error.message, "error");
+        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+
       } finally {
         setLoading(false);
       }
