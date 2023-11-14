@@ -54,7 +54,7 @@ const UserPage = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Box w={{ base: "full", md: "65%" }} mr={{ base: 0, md: 12 }}>
+      <Box w={{ base: "full", md: "53%" }} mr={{ base: 0, md: 12 }}>
         <UserHeader user={user} />
 
         {!fetchingPosts && posts.length === 0 && <h1>User has not posts.</h1>}

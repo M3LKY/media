@@ -24,8 +24,12 @@ const HomePage = () => {
         }
         setPosts(data);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
       } finally {
         setLoading(false);
       }
@@ -38,7 +42,6 @@ const HomePage = () => {
       <Box flex={70}>
         {!loading && posts.length === 0 && (
           <h1>Follow some users to see the feed</h1>
-          
         )}
         {loading && (
           <Flex justify="center">
@@ -53,10 +56,12 @@ const HomePage = () => {
       </Box>
       <Box
         flex={30}
+        position={"sticky"}
         display={{
           base: "none",
           md: "block",
         }}
+        style={{ top: 15, zIndex: 1 }}
       >
         <SuggestedUsers />
       </Box>

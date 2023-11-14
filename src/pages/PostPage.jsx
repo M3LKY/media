@@ -83,11 +83,11 @@ const PostPage = () => {
   // console.log("currentPost", currentPost);
 
   return (
-    <Box display="flex" justifyItems="center" alignItems="center" centerContent>
-      <Box w={{ base: "full", md: "65%" }} margin="auto" mt={8}>
+    <Box display="flex" justifyItems="center" alignItems="center" centercontent="true">
+      <Box w={{ base: "full", md: "50%" }} margin="auto" mt={8}>
         <Flex>
           <Flex w={"full"} alignItems={"center"} gap={3}>
-            <Avatar src={user.profilePic} size={"md"} name="Mark Zuckerberg" />
+            <Avatar src={user.profilePic} size={"md"} />
             <Flex w={"full"} alignItems={"center"}>
               <Text
                 fontSize={"sm"}
@@ -122,7 +122,7 @@ const PostPage = () => {
           </Flex>
         </Flex>
 
-        <Text ml={12} my={3}>
+        <Text  my={3}>
           {currentPost.text}
         </Text>
 
@@ -137,7 +137,7 @@ const PostPage = () => {
           </Box>
         )}
 
-        <Flex ml={12} gap={3} my={3}>
+        <Flex  gap={3} my={3}>
           <Actions post={currentPost} />
         </Flex>
 
