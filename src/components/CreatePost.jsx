@@ -104,9 +104,9 @@ const CreatePost = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
-        <ModalContent>
+        <ModalContent bg={"black"} color={"white"}>
           <ModalHeader>Create Post</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
             <FormControl>
               <Textarea
@@ -119,7 +119,7 @@ const CreatePost = () => {
                 fontWeight="bold"
                 textAlign={"right"}
                 m={"1"}
-                color={"gray.800"}
+                color={"gray.500"}
               >
                 {remainingChar}/{MAX_CHAR}
               </Text>
@@ -145,7 +145,7 @@ const CreatePost = () => {
                   onClick={() => {
                     setImgUrl("");
                   }}
-                  bg={"gray.800"}
+                  bg={"red.300"}
                   position={"absolute"}
                   top={2}
                   right={2}
@@ -156,10 +156,10 @@ const CreatePost = () => {
 
           <ModalFooter>
             <Button
-              colorScheme="blue"
-              mr={3}
+              colorScheme="teal"
               onClick={handleCreatePost}
               isLoading={loading}
+              pb={0.5}
             >
               Post
             </Button>

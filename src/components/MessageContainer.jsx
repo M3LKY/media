@@ -142,7 +142,7 @@ const MessageContainer = () => {
         gap={4}
         my={4}
         p={2}
-        height={"400px"}
+        height={"500px"}
         overflowY={"auto"}
       >
         {loadingMessages &&

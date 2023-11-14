@@ -14,12 +14,21 @@ const Message = ({ ownMessage, message }) => {
       {ownMessage ? (
         <Flex gap={2} alignSelf={"flex-end"}>
           {message.text && (
-            <Flex bg={"green.800"} maxW={"350px"} p={1} borderRadius={"md"}>
+            <Flex
+              bg={"blue.900"}
+              maxW={"350px"}
+              pt={1}
+              pl={2}
+              pr={2}
+              pb={2}
+              fontWeight={"600"}
+              borderRadius={"md"}
+            >
               <Text color={"white"}>{message.text}</Text>
               <Box
                 alignSelf={"flex-end"}
                 ml={1}
-                color={message.seen ? "blue.400" : ""}
+                color={message.seen ? "pink.400" : ""}
                 fontWeight={"bold"}
               >
                 <BsCheck2All size={16} />
@@ -53,19 +62,28 @@ const Message = ({ ownMessage, message }) => {
             </Flex>
           )}
 
-          <Avatar src={user.profilePic} w="7" h={7} />
+          <Avatar src={user.profilePic} w="7" h={7} mt={1} />
         </Flex>
       ) : (
         <Flex gap={2}>
-          <Avatar src={selectedConversation.userProfilePic} w="7" h={7} />
+          <Avatar
+            src={selectedConversation.userProfilePic}
+            w="7"
+            h={7}
+            mt={1}
+          />
 
           {message.text && (
             <Text
               maxW={"350px"}
-              bg={"gray.400"}
-              p={1}
+              bg={"green.100"}
+              pt={1}
+              pl={2}
+              pr={2}
+              pb={2}
               borderRadius={"md"}
               color={"black"}
+              fontWeight={"600"}
             >
               {message.text}
             </Text>

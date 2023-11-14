@@ -31,8 +31,10 @@ export default function LoginCard() {
     password: "",
   });
   const showToast = useShowToast();
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
     setLoading(true);
+  
     try {
       const res = await fetch("/api/users/login", {
         method: "POST",
@@ -42,18 +44,21 @@ export default function LoginCard() {
         body: JSON.stringify(inputs),
       });
       const data = await res.json();
+  
       if (data.error) {
         showToast("Error", data.error, "error");
         return;
       }
+  
       localStorage.setItem("user-threads", JSON.stringify(data));
       setUser(data);
     } catch (error) {
-      showToast("Error", error, "error");
+      showToast("Error", error.message || "An error occurred", "error");
     } finally {
       setLoading(false);
     }
   };
+  
   return (
     <Flex align={"center"} justify={"center"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -72,6 +77,7 @@ export default function LoginCard() {
             sm: "400px",
           }}
         >
+          <form onSubmit={handleLogin}>
           <Stack spacing={4}>
             <FormControl isRequired>
               <FormLabel>Username</FormLabel>
@@ -112,7 +118,9 @@ export default function LoginCard() {
               </InputGroup>
             </FormControl>
             <Stack spacing={10} pt={2}>
+          
               <Button
+              type="submit"
                 loadingText="Logging in"
                 size="lg"
                 bg={useColorModeValue("gray.600", "gray.700")}
@@ -120,7 +128,6 @@ export default function LoginCard() {
                 _hover={{
                   bg: useColorModeValue("gray.700", "gray.800"),
                 }}
-                onClick={handleLogin}
                 isLoading={loading}
               >
                 Login
@@ -138,6 +145,7 @@ export default function LoginCard() {
               </Text>
             </Stack>
           </Stack>
+          </form>
         </Box>
       </Stack>
     </Flex>

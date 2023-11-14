@@ -1,4 +1,4 @@
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Text, Box } from "@chakra-ui/react";
 import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
 
@@ -30,14 +30,18 @@ export const SettingsPage = () => {
   };
 
   return (
-    <>
-      <Text my={1} fontWeight={"bold"}>
-        Freeze Your Account
-      </Text>
-      <Text my={1}>You can unfreeze your account anytime by logging in.</Text>
-      <Button size={"sm"} colorScheme="red" onClick={freezeAccount}>
-        Freeze
-      </Button>
-    </>
+    <Box display="flex" justifyItems="center" alignItems="center" centerContent>
+      <Box w={{ base: "full", md: "65%" }} margin="auto" mt={8}>
+        <Text my={1} fontWeight={"bold"}>
+          Freeze Your Account
+        </Text>
+        <Text my={1} mb={3}>
+          You can unfreeze your account anytime by logging in.
+        </Text>
+        <Button size={"sm"} colorScheme="red" onClick={freezeAccount} pb={1}>
+          Freeze
+        </Button>
+      </Box>
+    </Box>
   );
 };

@@ -1,7 +1,7 @@
 import {
   Avatar,
   Box,
-  Button,
+  // Button,
   Divider,
   Flex,
   Image,
@@ -79,76 +79,87 @@ const PostPage = () => {
   console.log("currentPost", currentPost);
 
   return (
-    <>
-      <Flex>
-        <Flex w={"full"} alignItems={"center"} gap={3}>
-          <Avatar src={user.profilePic} size={"md"} name="Mark Zuckerberg" />
-          <Flex>
-            <Text fontSize={"sm"} fontWeight={"bold"}>
-              {user.username}
+    <Box display="flex" justifyItems="center" alignItems="center" centerContent>
+      <Box w={{ base: "full", md: "65%" }} margin="auto" mt={8}>
+        <Flex>
+          <Flex w={"full"} alignItems={"center"} gap={3}>
+            <Avatar src={user.profilePic} size={"md"} name="Mark Zuckerberg" />
+            <Flex w={"full"} alignItems={"center"}>
+              <Text
+                fontSize={"sm"}
+                fontWeight={"bold"}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(`/${user.username}`);
+                }}
+              >
+                {user?.username}
+              </Text>
+              <Image src="/verified.png" w={4} h={4} ml={1} />
+            </Flex>
+          </Flex>
+          <Flex gap={4} alignItems={"center"}>
+            <Text
+              fontSize={"xs"}
+              width={36}
+              textAlign={"right"}
+              color={"gray.light"}
+            >
+              {formatDistanceToNow(new Date(currentPost.createdAt))} ago
             </Text>
-            <Image src="/verified.png" w="4" h={4} ml={4} />
+
+            {currentUser?._id === user._id && (
+              <DeleteIcon
+                size={20}
+                cursor={"pointer"}
+                onClick={handleDeletePost}
+              />
+            )}
           </Flex>
         </Flex>
-        <Flex gap={4} alignItems={"center"}>
-          <Text
-            fontSize={"xs"}
-            width={36}
-            textAlign={"right"}
-            color={"gray.light"}
+
+        <Text ml={12} my={3}>
+          {currentPost.text}
+        </Text>
+
+        {currentPost.img && (
+          <Box
+            borderRadius={6}
+            overflow={"hidden"}
+            border={"1px solid"}
+            borderColor={"gray.light"}
           >
-            {formatDistanceToNow(new Date(currentPost.createdAt))} ago
-          </Text>
+            <Image src={currentPost.img} w={"full"} />
+          </Box>
+        )}
 
-          {currentUser?._id === user._id && (
-            <DeleteIcon
-              size={20}
-              cursor={"pointer"}
-              onClick={handleDeletePost}
-            />
-          )}
+        <Flex ml={12} gap={3} my={3}>
+          <Actions post={currentPost} />
         </Flex>
-      </Flex>
 
-      <Text my={3}>{currentPost.text}</Text>
+        <Divider my={4} />
 
-      {currentPost.img && (
-        <Box
-          borderRadius={6}
-          overflow={"hidden"}
-          border={"1px solid"}
-          borderColor={"gray.light"}
-        >
-          <Image src={currentPost.img} w={"full"} />
-        </Box>
-      )}
-
-      <Flex gap={3} my={3}>
-        <Actions post={currentPost} />
-      </Flex>
-
-      <Divider my={4} />
-
-      <Flex justifyContent={"space-between"}>
+        {/* <Flex justifyContent={"space-between"}>
         <Flex gap={2} alignItems={"center"}>
           <Text fontSize={"2xl"}>👋</Text>
           <Text color={"gray.light"}>Get the app to like, reply and post.</Text>
         </Flex>
         <Button>Get</Button>
-      </Flex>
+      </Flex> */}
 
-      <Divider my={4} />
-      {currentPost.replies.map((reply) => (
-        <Comment
-          key={reply._id}
-          reply={reply}
-          lastReply={
-            reply._id ===
-            currentPost.replies[currentPost.replies.length - 1]._id
-          }
-        />
-      ))}
-    </>
+        <Divider my={4} />
+        {currentPost.replies.map((reply) => (
+          <Comment
+            key={reply._id}
+            reply={reply}
+            lastReply={
+              reply._id ===
+              currentPost.replies[currentPost.replies.length - 1]._id
+            }
+          />
+        ))}
+      </Box>
+    </Box>
   );
 };
 

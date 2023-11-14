@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import Conversation from "../components/Conversation";
-import { GiConversation } from "react-icons/gi";
+import { AiFillWechat } from "react-icons/ai";
 import MessageContainer from "../components/MessageContainer";
 import { useEffect, useState } from "react";
 import useShowToast from "../hooks/useShowToast";
@@ -133,7 +133,7 @@ const ChatPage = () => {
     <Box
       position={"absolute"}
       left={"50%"}
-      w={{ base: "100%", md: "80%", lg: "750px" }}
+      w={{ base: "100%", md: "90%" }}
       p={4}
       transform={"translateX(-50%)"}
     >
@@ -146,13 +146,7 @@ const ChatPage = () => {
         }}
         mx={"auto"}
       >
-        <Flex
-          flex={30}
-          gap={2}
-          flexDirection={"column"}
-          maxW={{ sm: "250px", md: "full" }}
-          mx={"auto"}
-        >
+        <Flex flex={30} gap={2} flexDirection={"column"} w={"full"} mx={"auto"}>
           <Text
             fontWeight={700}
             color={useColorModeValue("gray.600", "gray.400")}
@@ -215,7 +209,7 @@ const ChatPage = () => {
             justifyContent={"center"}
             height={"400px"}
           >
-            <GiConversation size={100} />
+            <AiFillWechat size={100} />
             <Text fontSize={20}>Select a conversation to start messaging</Text>
           </Flex>
         )}

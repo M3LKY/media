@@ -11,6 +11,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import userAtom from "../atoms/userAtom";
 import usePreviewImg from "../hooks/usePreviewImg";
@@ -29,8 +30,12 @@ export default function UpdateProfilePage() {
   const [updating, setUpdating] = useState(false);
 
   const showToast = useShowToast();
+  const navigate = useNavigate();
 
   const { handleImageChange, imgUrl } = usePreviewImg();
+  const handleCancel = () => {
+    navigate(`/${user.username}`);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +57,7 @@ export default function UpdateProfilePage() {
       showToast("Success", "Profile updated successfully", "success");
       setUser(data);
       localStorage.setItem("user-threads", JSON.stringify(data));
+    navigate(`/${user.username}`);
     } catch (error) {
       showToast("Error", error, "error");
     } finally {
@@ -151,21 +157,27 @@ export default function UpdateProfilePage() {
           </FormControl>
           <Stack spacing={6} direction={["column", "row"]}>
             <Button
-              bg={"red.400"}
-              color={"white"}
+              colorScheme=""
+              color={"red"}
+              border="1px solid red"
               w="full"
+              onClick={handleCancel}
               _hover={{
-                bg: "red.500",
+                bg: "red.700",
+                color:"white"
               }}
             >
               Cancel
             </Button>
             <Button
-              bg={"green.400"}
-              color={"white"}
+              colorScheme=""
+              color={"green"}
+              border="1px solid green"
+
               w="full"
               _hover={{
-                bg: "green.500",
+                bg: "green.700",
+                color: "white"
               }}
               type="submit"
               isLoading={updating}

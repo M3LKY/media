@@ -15,7 +15,7 @@ const PageLayout = ({ children }) => {
           <Sidebar user={user} />
         </Box>
       ) : null}
-      <Box flex={1} w={{ base: "calc(100% - 70px)", md: "calc(100% - 240px)" }}>
+      <Box flex={1} w={{ base: "calc(100% - 70px)", md: "calc(100% - 240px)" }} >
         {children}
       </Box>
     </Flex>

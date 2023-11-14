@@ -1,4 +1,3 @@
-// import { AddIcon } from "@chakra-ui/icons";
 import {
   Button,
   CloseButton,
@@ -16,45 +15,49 @@ import {
   Text,
   Textarea,
   useDisclosure,
-} from "@chakra-ui/react";
-import { useRef, useState } from "react";
-import usePreviewImg from "../hooks/usePreviewImg";
-import { BsFillImageFill } from "react-icons/bs";
-import { useRecoilState } from "recoil";
-// import userAtom from "../atoms/userAtom";
-import useShowToast from "../hooks/useShowToast";
-import postsAtom from "../atoms/postsAtom";
-import { useParams } from "react-router-dom";
-
-const MAX_CHAR = 500;
-import {
   Box,
-  FormLabel,
   Tooltip,
-} from "@chakra-ui/react";
-import {
   Avatar,
   Link,
   useColorMode,
 } from "@chakra-ui/react";
-import { Link as RouterLink } from "react-router-dom";
+import { useRef, useState } from "react";
+import usePreviewImg from "../hooks/usePreviewImg";
+import { BsFillImageFill, BsPlusSquareDotted } from "react-icons/bs";
+import { useRecoilState } from "recoil";
+import useShowToast from "../hooks/useShowToast";
+import postsAtom from "../atoms/postsAtom";
+import { Link as RouterLink, useParams } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
-import { FcFaq } from "react-icons/fc";
-import { FcSettings } from "react-icons/fc";
-import { FcNightLandscape } from "react-icons/fc";
 import Connecto from "/connecto.png";
 import Mobileonnecto from "/mobileconnecto.png";
-import { FcSearch } from "react-icons/fc";
-import { BsPlusSquareDotted } from "react-icons/bs";
 import SuggestedUser from "../components/SuggestedUser";
-
-import { FcHome } from "react-icons/fc";
+import {
+  FcHome,
+  FcSearch,
+  FcFaq,
+  FcSettings,
+  FcNightLandscape,
+} from "react-icons/fc";
 import { BiLogOut } from "react-icons/bi";
-// import CreatePost from "../components/CreatePost";
+import { Search2Icon } from "@chakra-ui/icons";
+
+const MAX_CHAR = 500;
 
 const Sidebar = ({ user }) => {
   const { toggleColorMode } = useColorMode();
   const logout = useLogout();
+  const [postText, setPostText] = useState("");
+  const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
+  const imageRef = useRef(null);
+  const [remainingChar, setRemainingChar] = useState(MAX_CHAR);
+  const showToast = useShowToast();
+  const [posts, setPosts] = useRecoilState(postsAtom);
+  const { username } = useParams();
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [Suser, setUser] = useState(null);
+  const searchRef = useRef();
 
   const {
     isOpen: isSearchModalOpen,
@@ -68,18 +71,17 @@ const Sidebar = ({ user }) => {
     onClose: onCreatePostModalClose,
   } = useDisclosure();
 
-  const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [Suser, setUser] = useState(null);
-  const searchRef = useRef();
-
   const handleSearchUser = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     try {
+      setError(null);
       const res = await fetch(`/api/users/profile/${searchRef.current.value}`);
       const data = await res.json();
+      if (data.error) {
+        showToast("Error", data.error, "error");
+        return;
+      }
       setUser(data);
     } catch (error) {
       setError("An error occurred while searching for the user.");
@@ -87,24 +89,6 @@ const Sidebar = ({ user }) => {
       setLoading(false);
     }
   };
-
-  // const handleCreatePost = () => {
-  //   // Add logic for creating a post
-  //   // ...
-
-  //   // Close the create post modal
-  //   onCreatePostModalClose();
-  // };
-
-
-  const [postText, setPostText] = useState("");
-  const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
-  const imageRef = useRef(null);
-  const [remainingChar, setRemainingChar] = useState(MAX_CHAR);
-  // const user = useRecoilValue(userAtom);
-  const showToast = useShowToast();
-  const [posts, setPosts] = useRecoilState(postsAtom);
-  const { username } = useParams();
 
   const handleTextChange = (e) => {
     const inputText = e.target.value;
@@ -153,7 +137,6 @@ const Sidebar = ({ user }) => {
     }
   };
 
-
   const sidebarItems = [
     {
       icon: <FcHome size={24} />,
@@ -195,127 +178,134 @@ const Sidebar = ({ user }) => {
 
   return (
     <>
-    <Box
-      height={"100vh"}
-      borderRight={"1px solid"}
-      borderColor={"whiteAlpha.300"}
-      py={8}
-      position={"sticky"}
-      top={0}
-      left={0}
-      px={{ base: 2, md: 4 }}
-    >
-      <Flex direction={"column"} gap={10} w="full" height={"full"}>
-        <Link
-          to={"/"}
-          as={RouterLink}
-          pl={2}
-          display={{ base: "none", md: "block" }}
-          cursor="pointer"
-        >
-          <Image src={Connecto} h={7} />
-        </Link>
-        <Link
-          to={"/"}
-          as={RouterLink}
-          p={2}
-          display={{ base: "block", md: "none" }}
-          borderRadius={6}
-          _hover={{
-            bg: "whiteAlpha.200",
-          }}
-          cursor="pointer"
-        >
-          <Image src={Mobileonnecto} w={9} h={9} />
-        </Link>
-        <Flex direction={"column"} gap={5} cursor={"pointer"}>
-          {sidebarItems.map((item, index) => (
-            <Tooltip
-              key={index}
-              hasArrow
-              label={item.text}
-              placement="right"
-              ml={1}
-              openDelay={500}
-              display={{ base: "block", md: "none" }}
-            >
-              {user && (
-                <Link
-                  display={"flex"}
-                  to={item.link}
-                  as={RouterLink}
-                  onClick={item.click}
-                  alignItems={"center"}
-                  gap={4}
-                  _hover={{ bg: "whiteAlpha.400" }}
-                  borderRadius={6}
-                  p={2}
-                  w={{ base: 10, md: "full" }}
-                  justifyContent={{ base: "center", md: "flex-start" }}
-                >
-                  {item.icon}
-                  <Box display={{ base: "none", md: "block" }}>{item.text}</Box>
-                </Link>
-              )}
-            </Tooltip>
-          ))}
-        </Flex>
-        <Tooltip
-          hasArrow
-          label={"Logout"}
-          placement="right"
-          ml={1}
-          openDelay={500}
-          display={{ base: "block", md: "none" }}
-        >
+      <Box
+        height={"100vh"}
+        borderRight={"1px solid"}
+        borderColor={"whiteAlpha.300"}
+        py={8}
+        position={"sticky"}
+        top={0}
+        left={0}
+        px={{ base: 4, md: 4 }}
+      >
+        <Flex direction={"column"} gap={10} w="full" height={"full"}>
           <Link
-            display={"flex"}
+            to={"/"}
             as={RouterLink}
-            onClick={logout}
-            to={"/auth"}
-            alignItems={"center"}
-            gap={4}
-            _hover={{ bg: "whiteAlpha.400" }}
-            borderRadius={6}
-            p={2}
-            w={{ base: 10, md: "full" }}
-            mt={"auto"}
-            justifyContent={{ base: "center", md: "flex-start" }}
+            pl={2}
+            display={{ base: "none", md: "block" }}
+            cursor="pointer"
           >
-            <BiLogOut size={25} />
-            <Box display={{ base: "none", md: "block" }}>Logout</Box>
+            <Image src={Connecto} h={7} />
           </Link>
-        </Tooltip>
-      </Flex>
-    </Box>
+          <Link
+            to={"/"}
+            as={RouterLink}
+            display={{ base: "block", md: "none" }}
+            _hover={{
+              bg: "whiteAlpha.200",
+            }}
+            cursor="pointer"
+          >
+            <Image src={Mobileonnecto} ml={1} w={9} h={9} />
+          </Link>
+          <Flex direction={"column"} gap={5} cursor={"pointer"}>
+            {sidebarItems.map((item, index) => (
+              <Tooltip
+                key={index}
+                hasArrow
+                label={item.text}
+                placement="right"
+                ml={1}
+                openDelay={500}
+                display={{ base: "block", md: "none" }}
+              >
+                {user && (
+                  <Link
+                    display={"flex"}
+                    to={item.link}
+                    as={RouterLink}
+                    onClick={item.click}
+                    alignItems={"center"}
+                    gap={4}
+                    _hover={{ bg: "whiteAlpha.400" }}
+                    borderRadius={6}
+                    p={2}
+                    w={{ base: 10, md: "full" }}
+                    justifyContent={{ base: "center", md: "flex-start" }}
+                  >
+                    {item.icon}
+                    <Box display={{ base: "none", md: "block" }}>
+                      {item.text}
+                    </Box>
+                  </Link>
+                )}
+              </Tooltip>
+            ))}
+          </Flex>
+          <Tooltip
+            hasArrow
+            label={"Logout"}
+            placement="right"
+            ml={1}
+            openDelay={500}
+            display={{ base: "block", md: "none" }}
+          >
+            <Link
+              display={"flex"}
+              as={RouterLink}
+              onClick={logout}
+              to={"/auth"}
+              alignItems={"center"}
+              gap={4}
+              _hover={{ bg: "whiteAlpha.400" }}
+              borderRadius={6}
+              p={2}
+              w={{ base: 10, md: "full" }}
+              mt={"auto"}
+              justifyContent={{ base: "center", md: "flex-start" }}
+            >
+              <BiLogOut size={25} />
+              <Box display={{ base: "none", md: "block" }}>Logout</Box>
+            </Link>
+          </Tooltip>
+        </Flex>
+      </Box>
 
-    {/*model search*/}
+      {/*model search*/}
 
-    <Modal isOpen={isSearchModalOpen} onClose={onSearchModalClose} motionPreset="slideInLeft">
+      <Modal
+        isOpen={isSearchModalOpen}
+        onClose={onSearchModalClose}
+        motionPreset="slideInLeft"
+      >
         <ModalOverlay />
-        <ModalContent bg={"black"} border={"1px solid gray"} maxW={"400px"}>
-          <ModalHeader>Search user</ModalHeader>
-          <ModalCloseButton />
+        <ModalContent bg={"black"} color={"white"}>
+          <ModalHeader>Search</ModalHeader>
+          <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
             <form onSubmit={handleSearchUser}>
-              <FormControl>
-                <FormLabel>Username</FormLabel>
+              <Flex
+                w={{ base: "full", md: "415px" }}
+                alignItems={"center"}
+                gap={2}
+                mb={5}
+              >
                 <Input
-                  placeholder="asaprogrammer"
+                  placeholder="e.g. John"
                   ref={searchRef}
                   isInvalid={error}
+                  borderColor={"orange"}
                 />
-              </FormControl>
 
-              <Flex w="full" justifyContent="flex-end">
                 <Button
+                  colorScheme=""
+                  color={"white"}
                   type="submit"
-                  ml="auto"
                   size="sm"
-                  my={4}
                   isLoading={isLoading}
                 >
-                  Search
+                  <Search2Icon fontSize={18} color={"orange"} />
                 </Button>
               </Flex>
             </form>
@@ -324,18 +314,21 @@ const Sidebar = ({ user }) => {
                 {error}
               </Box>
             )}
-            {Suser && <SuggestedUser user={Suser} onClose={onSearchModalClose} />}
+            {Suser && (
+              <SuggestedUser user={Suser} onClose={onSearchModalClose} />
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>
 
       {/*model create*/}
 
-      <Modal isOpen={isCreatePostModalOpen} onClose={onCreatePostModalClose}>        <ModalOverlay />
-
-        <ModalContent>
+      <Modal isOpen={isCreatePostModalOpen} onClose={onCreatePostModalClose}>
+        {" "}
+        <ModalOverlay />
+        <ModalContent bg={"black"} color={"white"}>
           <ModalHeader>Create Post</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
             <FormControl>
               <Textarea
@@ -348,7 +341,7 @@ const Sidebar = ({ user }) => {
                 fontWeight="bold"
                 textAlign={"right"}
                 m={"1"}
-                color={"gray.800"}
+                color={"gray.500"}
               >
                 {remainingChar}/{MAX_CHAR}
               </Text>
@@ -374,7 +367,7 @@ const Sidebar = ({ user }) => {
                   onClick={() => {
                     setImgUrl("");
                   }}
-                  bg={"gray.800"}
+                  bg={"red.300"}
                   position={"absolute"}
                   top={2}
                   right={2}
@@ -385,10 +378,10 @@ const Sidebar = ({ user }) => {
 
           <ModalFooter>
             <Button
-              colorScheme="blue"
-              mr={3}
+              colorScheme="teal"
               onClick={handleCreatePost}
               isLoading={isLoading}
+              pb={0.5}
             >
               Post
             </Button>

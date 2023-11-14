@@ -6,6 +6,7 @@ import { Flex, Spinner } from "@chakra-ui/react";
 import Post from "../components/Post";
 import useGetUserProfile from "../hooks/useGetUserProfile";
 import { useRecoilState } from "recoil";
+import { Box } from "@chakra-ui/layout";
 import postsAtom from "../atoms/postsAtom";
 
 const UserPage = () => {
@@ -46,20 +47,27 @@ const UserPage = () => {
   if (!user && !loading) return <h1>User not found</h1>;
 
   return (
-    <>
-      <UserHeader user={user} />
+    <Box
+      
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <Box w={{ base: "full", md: "65%" }} mr={{ base: 0, md: 12 }}>
+        <UserHeader user={user} />
 
-      {!fetchingPosts && posts.length === 0 && <h1>User has not posts.</h1>}
-      {fetchingPosts && (
-        <Flex justifyContent={"center"} my={12}>
-          <Spinner size={"xl"} />
-        </Flex>
-      )}
+        {!fetchingPosts && posts.length === 0 && <h1>User has not posts.</h1>}
+        {fetchingPosts && (
+          <Flex justifyContent={"center"} my={12}>
+            <Spinner size={"xl"} />
+          </Flex>
+        )}
 
-      {posts.map((post) => (
-        <Post key={post._id} post={post} postedBy={post.postedBy} />
-      ))}
-    </>
+        {posts.map((post) => (
+          <Post key={post._id} post={post} postedBy={post.postedBy} />
+        ))}
+      </Box>
+    </Box>
   );
 };
 

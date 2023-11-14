@@ -29,7 +29,7 @@ const Conversation = ({ conversation, isOnline }) => {
     <Flex
       gap={4}
       alignItems={"center"}
-      p={"1"}
+      p={2}
       _hover={{
         cursor: "pointer",
         bg: useColorModeValue("gray.600", "gray.dark"),
@@ -48,9 +48,10 @@ const Conversation = ({ conversation, isOnline }) => {
         selectedConversation?._id === conversation._id
           ? colorMode === "light"
             ? "gray.400"
-            : "gray.dark"
+            : "blue.800"
           : ""
       }
+      color={"yellow.500"}
       borderRadius={"md"}
     >
       <WrapItem>
@@ -70,7 +71,7 @@ const Conversation = ({ conversation, isOnline }) => {
         <Text fontWeight="700" display={"flex"} alignItems={"center"}>
           {user.username} <Image src="/verified.png" w={4} h={4} ml={1} />
         </Text>
-        <Text fontSize={"xs"} display={"flex"} alignItems={"center"} gap={1}>
+        <Text fontSize={"sm"} display={"flex"} alignItems={"center"} gap={1}>
           {currentUser._id === lastMessage.sender ? (
             <Box color={lastMessage.seen ? "blue.400" : ""}>
               <BsCheck2All size={16} />
