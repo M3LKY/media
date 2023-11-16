@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
   const user = useRecoilValue(userAtom);
 
   useEffect(() => {
-    const socket = io("https://mediaserver-e8ef.vercel.app", {
+    const socket = io("https://connectserver-c64m.onrender.com", {
       query: {
         userId: user?._id,
       },
