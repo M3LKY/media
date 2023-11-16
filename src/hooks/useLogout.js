@@ -8,7 +8,7 @@ const useLogout = () => {
 
   const logout = async () => {
     try {
-      const res = await fetch("/api/users/logout", {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

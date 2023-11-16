@@ -76,7 +76,7 @@ const Sidebar = ({ user }) => {
     setLoading(true);
     try {
       setError(null);
-      const res = await fetch(`/api/users/profile/${searchRef.current.value}`);
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchRef.current.value}`);
       const data = await res.json();
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");
@@ -111,7 +111,7 @@ const Sidebar = ({ user }) => {
         showToast("Error", "Is Empty", "warning", "top-accent");
         return;
       }
-      const res = await fetch("/api/posts/create", {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/posts/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

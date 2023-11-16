@@ -36,7 +36,7 @@ export default function SignupCard() {
 
   const handleSignup = async () => {
     try {
-      const res = await fetch("/api/users/signup", {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

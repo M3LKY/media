@@ -11,7 +11,7 @@ export const SettingsPage = () => {
       return;
 
     try {
-      const res = await fetch("/api/users/freeze", {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/freeze", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
       });

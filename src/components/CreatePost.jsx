@@ -61,7 +61,7 @@ const CreatePost = () => {
         showToast("Error", "Is Empty", "warning", "top-accent");
         return;
       }
-      const res = await fetch("/api/posts/create", {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/posts/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

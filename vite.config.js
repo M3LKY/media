@@ -9,7 +9,7 @@ export default defineConfig({
     // Get rid of the CORS error
     proxy: {
       "/api": {
-        target: "https://connectoserver.onrender.com",
+        target: import.meta.env.VITE_CONNECTO_API,
         changeOrigin: true,
         secure: false,
       },

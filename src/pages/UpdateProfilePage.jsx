@@ -42,7 +42,7 @@ export default function UpdateProfilePage() {
     if (updating) return;
     setUpdating(true);
     try {
-      const res = await fetch(`/api/users/update/${user._id}`, {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/update/${user._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

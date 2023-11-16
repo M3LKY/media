@@ -36,7 +36,7 @@ export default function LoginCard() {
     setLoading(true);
   
     try {
-      const res = await fetch("/api/users/login", {
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
