@@ -10,7 +10,10 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://mediaserver-e8ef.vercel.app",
-        
+      },
+      "/socket.io": {
+        target: "https://mediaserver-e8ef.vercel.app",
+        ws: true,
       },
     },
   },
