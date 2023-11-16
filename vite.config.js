@@ -5,16 +5,12 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
-    // Get rid of the CORS error
     proxy: {
-      "/api": {
-        target: "https://connectserver-c64m.onrender.com",
-      },
-      "/socket.io": {
-        target: "https://connectserver-c64m.onrender.com",
-        ws: true,
-      },
-    },
-  },
+      '/api': {
+        target: 'https://connectserver-c64m.onrender.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  }
 });
