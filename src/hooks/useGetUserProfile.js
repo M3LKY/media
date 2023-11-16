@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useShowToast from "./useShowToast";
 
 const useGetUserProfile = () => {
-  const [Puser, setUser] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { username } = useParams();
   const showToast = useShowToast();
@@ -33,7 +33,7 @@ const useGetUserProfile = () => {
     getUser();
   }, [username, showToast]);
 
-  return { loading, Puser };
+  return { loading, user };
 };
 
 export default useGetUserProfile;
