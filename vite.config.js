@@ -12,5 +12,10 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
+  },
+  build: {
+    rollupOptions: {
+      external: ['https://connectserver-c64m.onrender.com']
+    }
   }
 });
