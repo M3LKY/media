@@ -9,10 +9,10 @@ export default defineConfig({
     // Get rid of the CORS error
     proxy: {
       "/api": {
-        target: "https://mediaserver-e8ef.vercel.app",
+        target: "https://connectserver-c64m.onrender.com",
       },
       "/socket.io": {
-        target: "https://mediaserver-e8ef.vercel.app",
+        target: "https://connectserver-c64m.onrender.com",
         ws: true,
       },
     },
