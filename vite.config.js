@@ -5,14 +5,22 @@ import react from "@vitejs/plugin-react-swc";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
-    // Get rid of the CORS error
     proxy: {
+<<<<<<< HEAD
       "/api": {
         target: import.meta.env.VITE_CONNECTO_API,
+=======
+      '/api': {
+        target: 'https://connectserver-c64m.onrender.com',
+>>>>>>> 29fb411f6aa1dd26c31b96acc58dc34df715c4e0
         changeOrigin: true,
-        secure: false,
-      },
-    },
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   },
+  build: {
+    rollupOptions: {
+      external: ['https://connectserver-c64m.onrender.com']
+    }
+  }
 });
