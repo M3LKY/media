@@ -12,7 +12,9 @@ const SuggestedUsers = () => {
     const getSuggestedUsers = async () => {
       setLoading(true);
       try {
-        const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/suggested");
+        const res = await fetch(
+          import.meta.env.VITE_CONNECTO_API + "/api/users/suggested"
+        );
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
@@ -21,8 +23,12 @@ const SuggestedUsers = () => {
         }
         setSuggestedUsers(data);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
       } finally {
         setLoading(false);
       }
@@ -38,10 +44,13 @@ const SuggestedUsers = () => {
       </Text>
       <Flex direction={"column"} gap={4}>
         {!loading &&
+          Array.isArray(suggestedUsers) &&
           suggestedUsers.map((user) => (
             <SuggestedUser key={user._id} user={user} />
           ))}
+
         {loading &&
+          Array.isArray(suggestedUsers) &&
           [0, 1, 2, 3, 4].map((_, idx) => (
             <Flex
               key={idx}
@@ -71,4 +80,3 @@ const SuggestedUsers = () => {
 };
 
 export default SuggestedUsers;
-
