@@ -8,7 +8,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: import.meta.env.VITE_CONNECTO_API,
-      },
-    },
+      }
+    }
   },
 });
