@@ -18,9 +18,10 @@ const SuggestedUsers = () => {
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
-
+          console.log(data.error)
           return;
         }
+        console.log(data)
         setSuggestedUsers(data);
       } catch (error) {
         showToast(
@@ -29,6 +30,7 @@ const SuggestedUsers = () => {
           "error",
           "left-accent"
         );
+        console.log(error)
       } finally {
         setLoading(false);
       }

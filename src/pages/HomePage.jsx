@@ -21,9 +21,10 @@ const HomePage = () => {
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
-
+          console.log(data.error)
           return;
         }
+        console.log(data)
         setPosts(data);
       } catch (error) {
         showToast(
@@ -32,6 +33,7 @@ const HomePage = () => {
           "error",
           "left-accent"
         );
+        console.log(error)
       } finally {
         setLoading(false);
       }
