@@ -16,19 +16,14 @@ const HomePage = () => {
       setPosts([]);
     
       try {
-        // const token = /* logic to get your JWT token */;
-    
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
           {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              // include the following line to send cookies
               'credentials': 'include',
             },
-            // include the following line to send the token in cookies
-            credentials: 'include',
           }
         );
     
