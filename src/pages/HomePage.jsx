@@ -17,7 +17,7 @@ const HomePage = () => {
     
       try {
         const token = localStorage.getItem('user-threads');
-    
+        console.log(token)
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
           {
