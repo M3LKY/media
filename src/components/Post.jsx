@@ -21,7 +21,15 @@ const Post = ({ post, postedBy }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/profile/" + postedBy);
+        const res = await fetch(
+          import.meta.env.VITE_CONNECTO_API + "/api/users/profile/" + postedBy,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
@@ -30,7 +38,12 @@ const Post = ({ post, postedBy }) => {
         }
         setUser(data);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
 
         setUser(null);
       }
@@ -44,9 +57,15 @@ const Post = ({ post, postedBy }) => {
       e.preventDefault();
       if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/posts/${post._id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + `/api/posts/${post._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");
@@ -55,7 +74,12 @@ const Post = ({ post, postedBy }) => {
       showToast("Deleted", "Post deleted", "info");
       setPosts(posts.filter((p) => p._id !== post._id));
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     }
   };
 

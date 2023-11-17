@@ -11,7 +11,15 @@ const useGetUserProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${username}`);
+        const res = await fetch(
+          import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${username}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
@@ -24,8 +32,12 @@ const useGetUserProfile = () => {
         }
         setUser(data);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
       } finally {
         setLoading(false);
       }

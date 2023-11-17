@@ -34,7 +34,15 @@ const PostPage = () => {
     const getPost = async () => {
       setPosts([]);
       try {
-        const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/posts/${pid}`);
+        const res = await fetch(
+          import.meta.env.VITE_CONNECTO_API + `/api/posts/${pid}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
@@ -43,8 +51,12 @@ const PostPage = () => {
         }
         setPosts([data]);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
       }
     };
     getPost();
@@ -54,9 +66,15 @@ const PostPage = () => {
     try {
       if (!window.confirm("Are you sure you want to delete this post?")) return;
 
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/posts/${currentPost._id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + `/api/posts/${currentPost._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");
@@ -66,8 +84,12 @@ const PostPage = () => {
       showToast("Deleted", "Post deleted", "info");
       navigate(`/${user.username}`);
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     }
   };
 
@@ -83,7 +105,12 @@ const PostPage = () => {
   // console.log("currentPost", currentPost);
 
   return (
-    <Box display="flex" justifyItems="center" alignItems="center" centercontent="true">
+    <Box
+      display="flex"
+      justifyItems="center"
+      alignItems="center"
+      centercontent="true"
+    >
       <Box w={{ base: "full", md: "50%" }} margin="auto" mt={8}>
         <Flex>
           <Flex w={"full"} alignItems={"center"} gap={3}>
@@ -122,9 +149,7 @@ const PostPage = () => {
           </Flex>
         </Flex>
 
-        <Text  my={3}>
-          {currentPost.text}
-        </Text>
+        <Text my={3}>{currentPost.text}</Text>
 
         {currentPost.img && (
           <Box
@@ -137,19 +162,11 @@ const PostPage = () => {
           </Box>
         )}
 
-        <Flex  gap={3} my={3}>
+        <Flex gap={3} my={3}>
           <Actions post={currentPost} />
         </Flex>
 
         <Divider my={4} />
-
-        {/* <Flex justifyContent={"space-between"}>
-        <Flex gap={2} alignItems={"center"}>
-          <Text fontSize={"2xl"}>👋</Text>
-          <Text color={"gray.light"}>Get the app to like, reply and post.</Text>
-        </Flex>
-        <Button>Get</Button>
-      </Flex> */}
 
         <Divider my={4} />
         {currentPost.replies.map((reply) => (

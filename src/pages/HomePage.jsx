@@ -16,7 +16,13 @@ const HomePage = () => {
       setPosts([]);
       try {
         const res = await fetch(
-          import.meta.env.VITE_CONNECTO_API + "/api/posts/feed"
+          import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
         );
         const data = await res.json();
         if (data.error) {

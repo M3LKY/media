@@ -15,7 +15,7 @@ export const SocketContextProvider = ({ children }) => {
   const user = useRecoilValue(userAtom);
 
   useEffect(() => {
-    const socket = io("https://connectserver-c64m.onrender.com", {
+    const socket = io(`${import.meta.env.VITE_CONNECTO_API}`, {
       query: {
         userId: user?._id,
       },

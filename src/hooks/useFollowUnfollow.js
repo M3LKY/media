@@ -20,12 +20,15 @@ const useFollowUnfollow = (user) => {
 
     setUpdating(true);
     try {
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/follow/${user._id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + `/api/users/follow/${user._id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");
@@ -34,7 +37,12 @@ const useFollowUnfollow = (user) => {
       }
 
       if (following) {
-        showToast("Unfollowed", `Unfollowed ${user.name}`, "info", "top-accent");
+        showToast(
+          "Unfollowed",
+          `Unfollowed ${user.name}`,
+          "info",
+          "top-accent"
+        );
         user.followers.pop(); // simulate removing from followers
       } else {
         showToast("Followed", `Followed ${user.name}`, "info", "top-accent");
@@ -44,8 +52,12 @@ const useFollowUnfollow = (user) => {
 
       console.log(data);
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setUpdating(false);
     }

@@ -9,9 +9,6 @@ import useFollowUnfollow from "../hooks/useFollowUnfollow";
 const UserHeader = ({ user }) => {
   const currentUser = useRecoilValue(userAtom); // logged in user
   const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
-
-  
-
   return (
     <VStack gap={4} alignItems={"start"}>
       <Box w="full" display="flex" alignItems="center" justifyContent="center">
@@ -49,7 +46,6 @@ const UserHeader = ({ user }) => {
 
       <Text>{user.bio}</Text>
 
-      
       {currentUser?._id !== user._id && (
         <Button size={"sm"} onClick={handleFollowUnfollow} isLoading={updating}>
           {following ? "Unfollow" : "Follow"}
@@ -62,11 +58,11 @@ const UserHeader = ({ user }) => {
           {/* <Li	nk color={"gray.light"}>instagram.com</Link> */}
         </Flex>
         <Flex>
-        {currentUser?._id === user._id && (
-        <Link as={RouterLink} to="/update">
-          <Button size={"sm"}>Update Profile</Button>
-        </Link>
-      )}
+          {currentUser?._id === user._id && (
+            <Link as={RouterLink} to="/update">
+              <Button size={"sm"}>Update Profile</Button>
+            </Link>
+          )}
         </Flex>
       </Flex>
 

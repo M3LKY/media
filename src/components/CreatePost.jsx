@@ -61,17 +61,20 @@ const CreatePost = () => {
         showToast("Error", "Is Empty", "warning", "top-accent");
         return;
       }
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/posts/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          postedBy: user._id,
-          text: postText,
-          img: imgUrl,
-        }),
-      });
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + "/api/posts/create",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            postedBy: user._id,
+            text: postText,
+            img: imgUrl,
+          }),
+        }
+      );
 
       const data = await res.json();
       if (data.error) {

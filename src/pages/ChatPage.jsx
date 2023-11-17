@@ -57,7 +57,15 @@ const ChatPage = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
-        const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/messages/conversations");
+        const res = await fetch(
+          import.meta.env.VITE_CONNECTO_API + "/api/messages/conversations",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
@@ -67,8 +75,12 @@ const ChatPage = () => {
         // console.log(data);
         setConversations(data);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
       } finally {
         setLoadingConversations(false);
       }
@@ -81,7 +93,15 @@ const ChatPage = () => {
     e.preventDefault();
     setSearchingUser(true);
     try {
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchText}`);
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchText}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const searchedUser = await res.json();
       if (searchedUser.error) {
         showToast("Error", searchedUser.error, "warning", "left-accent");
@@ -90,7 +110,12 @@ const ChatPage = () => {
 
       const messagingYourself = searchedUser._id === currentUser._id;
       if (messagingYourself) {
-        showToast("Error", "You cannot message yourself", "warning", "left-accent");
+        showToast(
+          "Error",
+          "You cannot message yourself",
+          "warning",
+          "left-accent"
+        );
         return;
       }
 
@@ -125,8 +150,12 @@ const ChatPage = () => {
       };
       setConversations((prevConvs) => [...prevConvs, mockConversation]);
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setSearchingUser(false);
     }

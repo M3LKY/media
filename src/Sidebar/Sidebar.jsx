@@ -76,7 +76,14 @@ const Sidebar = ({ user }) => {
     setLoading(true);
     try {
       setError(null);
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchRef.current.value}`);
+      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchRef.current.value}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
       const data = await res.json();
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");

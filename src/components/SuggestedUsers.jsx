@@ -13,7 +13,13 @@ const SuggestedUsers = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          import.meta.env.VITE_CONNECTO_API + "/api/users/suggested"
+          import.meta.env.VITE_CONNECTO_API + "/api/users/suggested",
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
         );
         const data = await res.json();
         if (data.error) {

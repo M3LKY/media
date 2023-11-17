@@ -10,12 +10,15 @@ const LogoutButton = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + "/api/users/logout",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const data = await res.json();
 
       if (data.error) {
@@ -27,7 +30,12 @@ const LogoutButton = () => {
       localStorage.removeItem("user-threads");
       setUser(null);
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     }
   };
   return (

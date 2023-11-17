@@ -42,17 +42,20 @@ const MessageInput = ({ setMessages }) => {
     setIsSending(true);
 
     try {
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: messageText,
-          recipientId: selectedConversation.userId,
-          img: imgUrl,
-        }),
-      });
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + "/api/messages",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            message: messageText,
+            recipientId: selectedConversation.userId,
+            img: imgUrl,
+          }),
+        }
+      );
       const data = await res.json();
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");
@@ -80,8 +83,12 @@ const MessageInput = ({ setMessages }) => {
       setMessageText("");
       setImgUrl("");
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setIsSending(false);
     }

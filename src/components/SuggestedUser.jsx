@@ -4,10 +4,10 @@ import useFollowUnfollow from "../hooks/useFollowUnfollow";
 
 const SuggestedUser = ({ user, onClose }) => {
   const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
-  
-  const handleClose = ()=> {
+
+  const handleClose = () => {
     onClose();
-  }
+  };
   return (
     <Flex gap={2} justifyContent={"space-between"} alignItems={"center"}>
       {/* left side */}

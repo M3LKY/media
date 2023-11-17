@@ -34,33 +34,40 @@ export default function LoginCard() {
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
     setLoading(true);
-  
-    try {
 
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inputs),
-      });
+    try {
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + "/api/users/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(inputs),
+        }
+      );
       const data = await res.json();
-  
+
       if (data.error) {
         showToast("Error", data.error, "error", "top-accent");
 
         return;
       }
-  
+
       localStorage.setItem("user-threads", JSON.stringify(data));
       setUser(data);
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setLoading(false);
     }
   };
-  
+
   return (
     <Flex align={"center"} justify={"center"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -80,73 +87,72 @@ export default function LoginCard() {
           }}
         >
           <form onSubmit={handleLogin}>
-          <Stack spacing={4}>
-            <FormControl isRequired>
-              <FormLabel>Username</FormLabel>
-              <Input
-                type="text"
-                value={inputs.username}
-                onChange={(e) =>
-                  setInputs((inputs) => ({
-                    ...inputs,
-                    username: e.target.value,
-                  }))
-                }
-              />
-            </FormControl>
-            <FormControl isRequired>
-              <FormLabel>Password</FormLabel>
-              <InputGroup>
+            <Stack spacing={4}>
+              <FormControl isRequired>
+                <FormLabel>Username</FormLabel>
                 <Input
-                  type={showPassword ? "text" : "password"}
-                  value={inputs.password}
+                  type="text"
+                  value={inputs.username}
                   onChange={(e) =>
                     setInputs((inputs) => ({
                       ...inputs,
-                      password: e.target.value,
+                      username: e.target.value,
                     }))
                   }
                 />
-                <InputRightElement h={"full"}>
-                  <Button
-                    variant={"ghost"}
-                    onClick={() =>
-                      setShowPassword((showPassword) => !showPassword)
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel>Password</FormLabel>
+                <InputGroup>
+                  <Input
+                    type={showPassword ? "text" : "password"}
+                    value={inputs.password}
+                    onChange={(e) =>
+                      setInputs((inputs) => ({
+                        ...inputs,
+                        password: e.target.value,
+                      }))
                     }
-                  >
-                    {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
-                </InputRightElement>
-              </InputGroup>
-            </FormControl>
-            <Stack spacing={10} pt={2}>
-          
-              <Button
-              type="submit"
-                loadingText="Logging in"
-                size="lg"
-                bg={useColorModeValue("gray.600", "gray.700")}
-                color={"white"}
-                _hover={{
-                  bg: useColorModeValue("gray.700", "gray.800"),
-                }}
-                isLoading={loading}
-              >
-                Login
-              </Button>
-            </Stack>
-            <Stack pt={6}>
-              <Text align={"center"}>
-                Don&apos;t have an account?{" "}
-                <Link
-                  color={"blue.400"}
-                  onClick={() => setAuthScreen("signup")}
+                  />
+                  <InputRightElement h={"full"}>
+                    <Button
+                      variant={"ghost"}
+                      onClick={() =>
+                        setShowPassword((showPassword) => !showPassword)
+                      }
+                    >
+                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+              </FormControl>
+              <Stack spacing={10} pt={2}>
+                <Button
+                  type="submit"
+                  loadingText="Logging in"
+                  size="lg"
+                  bg={useColorModeValue("gray.600", "gray.700")}
+                  color={"white"}
+                  _hover={{
+                    bg: useColorModeValue("gray.700", "gray.800"),
+                  }}
+                  isLoading={loading}
                 >
-                  Sign up
-                </Link>
-              </Text>
+                  Login
+                </Button>
+              </Stack>
+              <Stack pt={6}>
+                <Text align={"center"}>
+                  Don&apos;t have an account?{" "}
+                  <Link
+                    color={"blue.400"}
+                    onClick={() => setAuthScreen("signup")}
+                  >
+                    Sign up
+                  </Link>
+                </Text>
+              </Stack>
             </Stack>
-          </Stack>
           </form>
         </Box>
       </Stack>
