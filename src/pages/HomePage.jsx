@@ -17,7 +17,7 @@ const HomePage = () => {
     
       try {
         const token = localStorage.getItem('user-threads');
-        console.log(token.token)
+        console.log(token)
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
           {
@@ -25,7 +25,7 @@ const HomePage = () => {
             headers: {
               'Content-Type': 'application/json',
               'credentials': 'include',
-              'Authorization': `Bearer ${token.token}`, 
+              'Authorization': `Bearer ${token}`, 
             },
           }
         );
