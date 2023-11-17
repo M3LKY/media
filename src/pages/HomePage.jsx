@@ -24,9 +24,9 @@ const HomePage = () => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              'credentials': 'include',
               'Authorization': `Bearer ${token}`, 
             },
-            credentials: 'include',
           }
         );
     
