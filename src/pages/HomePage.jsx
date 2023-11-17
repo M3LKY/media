@@ -14,23 +14,32 @@ const HomePage = () => {
     const getFeedPosts = async () => {
       setLoading(true);
       setPosts([]);
+    
       try {
+        // const token = /* logic to get your JWT token */;
+    
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
           {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
+              // include the following line to send cookies
+              'credentials': 'include',
             },
+            // include the following line to send the token in cookies
+            credentials: 'include',
           }
         );
+    
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
-          console.log(data.error)
+          console.log(data.error);
           return;
         }
-        console.log(data)
+    
+        console.log(data);
         setPosts(data);
       } catch (error) {
         showToast(
@@ -39,11 +48,12 @@ const HomePage = () => {
           "error",
           "left-accent"
         );
-        console.log(error)
+        console.log(error);
       } finally {
         setLoading(false);
       }
     };
+    
     getFeedPosts();
   }, [showToast, setPosts]);
 

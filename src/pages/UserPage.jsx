@@ -24,19 +24,24 @@ const UserPage = () => {
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + `/api/posts/user/${username}`,
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
               // Add any other necessary headers
             },
           }
         );
         const data = await res.json();
-        
+
         console.log(data);
         setPosts(data);
       } catch (error) {
-        showToast("Error", error.message || "An error occurred", "error", "left-accent");
+        showToast(
+          "Error",
+          error.message || "An error occurred",
+          "error",
+          "left-accent"
+        );
         console.log(error);
 
         setPosts([]);
@@ -59,12 +64,7 @@ const UserPage = () => {
   if (!user && !loading) return <h1>User not found</h1>;
 
   return (
-    <Box
-      
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Box display="flex" alignItems="center" justifyContent="center">
       <Box w={{ base: "full", md: "53%" }} mr={{ base: 0, md: 12 }}>
         <UserHeader user={user} />
 
@@ -74,7 +74,7 @@ const UserPage = () => {
             <Spinner size={"xl"} />
           </Flex>
         )}
-{Array.isArray(posts) &&
+        {Array.isArray(posts) &&
           posts.length > 0 &&
           posts.map((post) => (
             <Post key={post._id} post={post} postedBy={post.postedBy} />
