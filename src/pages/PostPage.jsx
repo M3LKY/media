@@ -34,12 +34,16 @@ const PostPage = () => {
     const getPost = async () => {
       setPosts([]);
       try {
+        const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + `/api/posts/${pid}`,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              credentials: "include",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -64,6 +68,8 @@ const PostPage = () => {
 
   const handleDeletePost = async () => {
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
       if (!window.confirm("Are you sure you want to delete this post?")) return;
 
       const res = await fetch(
@@ -72,6 +78,8 @@ const PostPage = () => {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

@@ -21,12 +21,16 @@ const Post = ({ post, postedBy }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
+        const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/users/profile/" + postedBy,
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              credentials: "include",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -56,13 +60,16 @@ const Post = ({ post, postedBy }) => {
     try {
       e.preventDefault();
       if (!window.confirm("Are you sure you want to delete this post?")) return;
-
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
       const res = await fetch(
         import.meta.env.VITE_CONNECTO_API + `/api/posts/${post._id}`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

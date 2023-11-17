@@ -57,12 +57,16 @@ const ChatPage = () => {
   useEffect(() => {
     const getConversations = async () => {
       try {
+        const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/messages/conversations",
           {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              credentials: "include",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -93,12 +97,16 @@ const ChatPage = () => {
     e.preventDefault();
     setSearchingUser(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
       const res = await fetch(
         import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchText}`,
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

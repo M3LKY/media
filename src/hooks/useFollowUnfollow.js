@@ -20,12 +20,16 @@ const useFollowUnfollow = (user) => {
 
     setUpdating(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
       const res = await fetch(
         import.meta.env.VITE_CONNECTO_API + `/api/users/follow/${user._id}`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

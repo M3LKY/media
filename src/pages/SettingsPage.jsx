@@ -11,23 +11,40 @@ export const SettingsPage = () => {
       return;
 
     try {
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + "/api/users/freeze", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-      });
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + "/api/users/freeze",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const data = await res.json();
 
       if (data.error) {
         showToast("Error", data.error, "warning", "top-accent");
-
       }
       if (data.success) {
         await logout();
-        showToast("Frozen", "Your account has been frozen", "success", "top-accent");
+        showToast(
+          "Frozen",
+          "Your account has been frozen",
+          "success",
+          "top-accent"
+        );
       }
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     }
   };
 

@@ -54,8 +54,6 @@ const UserHeader = ({ user }) => {
       <Flex w={"full"} justifyContent={"space-between"}>
         <Flex gap={2} alignItems={"center"}>
           <Text color={"gray.light"}>{user.followers.length} followers</Text>
-          {/* <Box w='1' h='1' bg={"gray.light"} borderRadius={"full"}></Box> */}
-          {/* <Li	nk color={"gray.light"}>instagram.com</Link> */}
         </Flex>
         <Flex>
           {currentUser?._id === user._id && (

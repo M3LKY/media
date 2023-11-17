@@ -42,12 +42,16 @@ const Actions = ({ post }) => {
     if (isLiking) return;
     setIsLiking(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
       const res = await fetch(
         import.meta.env.VITE_CONNECTO_API + "/api/posts/like/" + post._id,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -99,12 +103,16 @@ const Actions = ({ post }) => {
     if (isReplying) return;
     setIsReplying(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
       const res = await fetch(
         import.meta.env.VITE_CONNECTO_API + "/api/posts/reply/" + post._id,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ text: reply }),
         }

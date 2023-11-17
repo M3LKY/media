@@ -101,6 +101,8 @@ const MessageContainer = () => {
       setMessages([]);
       try {
         if (selectedConversation.mock) return;
+        const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API +
             `/api/messages/${selectedConversation.userId}`,
@@ -108,6 +110,8 @@ const MessageContainer = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
+              credentials: "include",
+              Authorization: `Bearer ${token}`,
             },
           }
         );

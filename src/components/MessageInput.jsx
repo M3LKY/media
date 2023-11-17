@@ -42,12 +42,16 @@ const MessageInput = ({ setMessages }) => {
     setIsSending(true);
 
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+      const token = jdata.token;
       const res = await fetch(
         import.meta.env.VITE_CONNECTO_API + "/api/messages",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             message: messageText,

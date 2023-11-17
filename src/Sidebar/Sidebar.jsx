@@ -75,12 +75,16 @@ const Sidebar = ({ user }) => {
     e.preventDefault();
     setLoading(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
       setError(null);
       const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/profile/${searchRef.current.value}`,
       {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
+          credentials: "include",
+          Authorization: `Bearer ${token}`,
         },
       }
     );
@@ -114,6 +118,8 @@ const Sidebar = ({ user }) => {
   const handleCreatePost = async () => {
     setLoading(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
       if(postText === ""){
         showToast("Error", "Is Empty", "warning", "top-accent");
         return;
@@ -122,6 +128,8 @@ const Sidebar = ({ user }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          credentials: "include",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           postedBy: user._id,

@@ -42,11 +42,15 @@ export default function UpdateProfilePage() {
     if (updating) return;
     setUpdating(true);
     try {
+      const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
       const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/update/${user._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-        },
+          credentials: "include",
+          Authorization: `Bearer ${token}`,
+      },
         body: JSON.stringify({ ...inputs, profilePic: imgUrl }),
       });
       const data = await res.json(); // updated user object
