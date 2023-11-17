@@ -12,12 +12,16 @@ const SuggestedUsers = () => {
     const getSuggestedUsers = async () => {
       setLoading(true);
       try {
+        const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/users/suggested",
           {
             method: 'GET',
             headers: {
-              'Content-Type': 'application/json',
+              "Content-Type": "application/json",
+              credentials: "include",
+              Authorization: `Bearer ${token}`,
             },
           }
         );

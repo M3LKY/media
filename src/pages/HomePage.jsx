@@ -14,31 +14,31 @@ const HomePage = () => {
     const getFeedPosts = async () => {
       setLoading(true);
       setPosts([]);
-    
-      try {
-        const jdata = JSON.parse(localStorage.getItem('user-threads'));
-const token = jdata.token;
 
-        console.log(token)
+      try {
+        const jdata = JSON.parse(localStorage.getItem("user-threads"));
+        const token = jdata.token;
+
+        console.log(token);
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
           {
-            method: 'GET',
+            method: "GET",
             headers: {
-              'Content-Type': 'application/json',
-              'credentials': 'include',
-              'Authorization': `Bearer ${token}`, 
+              "Content-Type": "application/json",
+              credentials: "include",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
-    
+
         const data = await res.json();
         if (data.error) {
           showToast("Error", data.error, "warning", "top-accent");
           console.log(data.error);
           return;
         }
-    
+
         console.log(data);
         setPosts(data);
       } catch (error) {
@@ -53,7 +53,7 @@ const token = jdata.token;
         setLoading(false);
       }
     };
-     
+
     getFeedPosts();
   }, [showToast, setPosts]);
 
