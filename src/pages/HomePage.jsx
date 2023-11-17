@@ -16,7 +16,9 @@ const HomePage = () => {
       setPosts([]);
     
       try {
-        const token = localStorage.getItem('user-threads');
+        const jdata = JSON.parse(localStorage.getItem('user-threads'));
+const token = jdata.token;
+
         console.log(token)
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
