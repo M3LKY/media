@@ -16,14 +16,17 @@ const HomePage = () => {
       setPosts([]);
     
       try {
+        const token = localStorage.getItem('user-threads');
+    
         const res = await fetch(
           import.meta.env.VITE_CONNECTO_API + "/api/posts/feed",
           {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'credentials': 'include',
+              'Authorization': `Bearer ${token}`, 
             },
+            credentials: 'include',
           }
         );
     
@@ -48,7 +51,7 @@ const HomePage = () => {
         setLoading(false);
       }
     };
-    
+     
     getFeedPosts();
   }, [showToast, setPosts]);
 
