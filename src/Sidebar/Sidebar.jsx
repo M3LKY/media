@@ -208,6 +208,7 @@ const Sidebar = ({ user }) => {
         position={"sticky"}
         top={0}
         left={0}
+        m={0}
         px={{ base: 4, md: 4 }}
       >
         <Flex direction={"column"} gap={10} w="full" height={"full"}>
@@ -250,8 +251,8 @@ const Sidebar = ({ user }) => {
                     onClick={item.click}
                     alignItems={"center"}
                     gap={4}
-                    _hover={{ bg: "whiteAlpha.400" }}
-                    borderRadius={6}
+                    _hover={{ bg: "#fff", borderRadius: "20", color: "black"}}
+                    borderRadius={20}
                     p={2}
                     w={{ base: 10, md: "full" }}
                     justifyContent={{ base: "center", md: "flex-start" }}
@@ -280,8 +281,8 @@ const Sidebar = ({ user }) => {
               to={"/auth"}
               alignItems={"center"}
               gap={4}
-              _hover={{ bg: "whiteAlpha.400" }}
-              borderRadius={6}
+              _hover={{ bg: "#fff", borderRadius: "20", color: "black"}}
+              borderRadius={20}
               p={2}
               w={{ base: 10, md: "full" }}
               mt={"auto"}
@@ -302,7 +303,7 @@ const Sidebar = ({ user }) => {
         motionPreset="slideInLeft"
       >
         <ModalOverlay />
-        <ModalContent bg={"black"} color={"white"}>
+        <ModalContent bg={"black"} color={"white"} borderRadius={20} border={"1px solid orange"}>
           <ModalHeader>Search</ModalHeader>
           <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
@@ -348,7 +349,7 @@ const Sidebar = ({ user }) => {
       <Modal isOpen={isCreatePostModalOpen} onClose={onCreatePostModalClose}>
         {" "}
         <ModalOverlay />
-        <ModalContent bg={"black"} color={"white"}>
+        <ModalContent bg={"black"} color={"white"} borderRadius={20} border={"1px solid teal"}>
           <ModalHeader>Create Post</ModalHeader>
           <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
@@ -400,6 +401,7 @@ const Sidebar = ({ user }) => {
 
           <ModalFooter>
             <Button
+            borderRadius={20}
               colorScheme="teal"
               onClick={handleCreatePost}
               isLoading={isLoading}

@@ -48,11 +48,11 @@ const Conversation = ({ conversation, isOnline }) => {
         selectedConversation?._id === conversation._id
           ? colorMode === "light"
             ? "gray.400"
-            : "blue.800"
+            : "#011c06"
           : ""
       }
       color={"yellow.500"}
-      borderRadius={"md"}
+      borderRadius={"20"}
     >
       <WrapItem>
         <Avatar

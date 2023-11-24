@@ -1,6 +1,7 @@
-import { Button, Text, Box } from "@chakra-ui/react";
+import { Button, Text, Box, Flex } from "@chakra-ui/react";
 import useShowToast from "../hooks/useShowToast";
 import useLogout from "../hooks/useLogout";
+import SuggestedUsers from "../components/SuggestedUsers";
 
 export const SettingsPage = () => {
   const showToast = useShowToast();
@@ -49,18 +50,35 @@ export const SettingsPage = () => {
   };
 
   return (
-    <Box display="flex" justifyItems="center" alignItems="center" centerContent>
-      <Box w={{ base: "full", md: "65%" }} margin="auto" mt={8}>
+    <Flex  alignItems={"flex-start"} justifyContent={{base: "inherit", md:"space-around"}}>
+
+      <Box w={{base:"full", md:"580px"}} pt={10} pl={6}>
         <Text my={1} fontWeight={"bold"}>
           Freeze Your Account
         </Text>
         <Text my={1} mb={3}>
           You can unfreeze your account anytime by logging in.
         </Text>
-        <Button size={"sm"} colorScheme="red" onClick={freezeAccount} pb={1}>
+              
+        <Button borderRadius={20} bg={"red.600"} pb={0.5} color={"white"} onClick={freezeAccount}>
           Freeze
         </Button>
       </Box>
-    </Box>
+      <Box
+      height={"100vh"}
+      borderLeft={"1px solid"}
+      borderColor={"whiteAlpha.300"}
+      py={8}
+      position={"sticky"}
+      top={0}
+      left={0}
+      m={0}
+      px={{ base: 4, md: 4 }}
+      flex={30}
+      display={{base: "none", md: "block"}}
+      >
+        <SuggestedUsers />
+      </Box>
+    </Flex>
   );
 };

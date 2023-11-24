@@ -19,8 +19,8 @@ function App() {
     <PageLayout alignItems="center" justifyContent="center">
       <Box position={"relative"} w="full">
         <Container
-          maxW={pathname === "/" ? { base: "100%", md: "80%" } : "full"}
-          mt={8}
+          maxW={pathname === "/" ? { base: "full", md: "68%" } : "full"}
+           minW={{base:"auto", md:"950px"}}
         >
           <Routes>
             <Route

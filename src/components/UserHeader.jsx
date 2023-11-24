@@ -10,8 +10,8 @@ const UserHeader = ({ user }) => {
   const currentUser = useRecoilValue(userAtom); // logged in user
   const { handleFollowUnfollow, following, updating } = useFollowUnfollow(user);
   return (
-    <VStack gap={4} alignItems={"start"}>
-      <Box w="full" display="flex" alignItems="center" justifyContent="center">
+    <VStack gap={4} alignItems={"start"} minW={{base:"auto", md:"580px"}}>
+      <Box w="full" display="flex" alignItems="center" justifyContent="center" pt={6}>
         <Box
           display="flex"
           flexDirection={{ base: "column", md: "column" }}
@@ -44,21 +44,22 @@ const UserHeader = ({ user }) => {
         </Box>
       </Box>
 
-      <Text>{user.bio}</Text>
-
-      {currentUser?._id !== user._id && (
-        <Button size={"sm"} onClick={handleFollowUnfollow} isLoading={updating}>
+      <Text pl={3.5}>{user.bio}</Text>
+<Box pl={3.5}>      {currentUser?._id !== user._id && (
+        <Button size={"sm"} borderRadius={20} onClick={handleFollowUnfollow} isLoading={updating} >
           {following ? "Unfollow" : "Follow"}
         </Button>
       )}
-      <Flex w={"full"} justifyContent={"space-between"}>
+     </Box>
+
+      <Flex w={"full"} justifyContent={"space-between"} pl={3.5}>
         <Flex gap={2} alignItems={"center"}>
           <Text color={"gray.light"}>{user.followers.length} followers</Text>
         </Flex>
         <Flex>
           {currentUser?._id === user._id && (
-            <Link as={RouterLink} to="/update">
-              <Button size={"sm"}>Update Profile</Button>
+            <Link as={RouterLink} to="/update" pr={3.5}>
+              <Button borderRadius={20} size={"sm"}>Update Profile</Button>
             </Link>
           )}
         </Flex>

@@ -19,6 +19,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import userAtom from "../atoms/userAtom";
 import { DeleteIcon } from "@chakra-ui/icons";
 import postsAtom from "../atoms/postsAtom";
+import SuggestedUsers from "../components/SuggestedUsers";
 
 const PostPage = () => {
   const { user, loading } = useGetUserProfile();
@@ -113,13 +114,10 @@ const PostPage = () => {
   // console.log("currentPost", currentPost);
 
   return (
-    <Box
-      display="flex"
-      justifyItems="center"
-      alignItems="center"
-      centercontent="true"
-    >
-      <Box w={{ base: "full", md: "50%" }} margin="auto" mt={8}>
+    <Flex  alignItems={"flex-start"} justifyContent={{base: "inherit", md:"space-around"}}>
+
+      <Box w={{ base: "full", md: "600px" }}  mt={8} >
+        <Box p={3.5}>
         <Flex>
           <Flex w={"full"} alignItems={"center"} gap={3}>
             <Avatar src={user.profilePic} size={"md"} />
@@ -157,11 +155,11 @@ const PostPage = () => {
           </Flex>
         </Flex>
 
-        <Text my={3}>{currentPost.text}</Text>
+        <Text my={3} fontSize={"md"} p={0.5}>{currentPost.text}</Text>
 
         {currentPost.img && (
           <Box
-            borderRadius={6}
+            borderRadius={20}
             overflow={"hidden"}
             border={"1px solid"}
             borderColor={"gray.light"}
@@ -173,11 +171,13 @@ const PostPage = () => {
         <Flex gap={3} my={3}>
           <Actions post={currentPost} />
         </Flex>
-
-        <Divider my={4} />
-
-        <Divider my={4} />
+</Box>
+        <Divider my={4}  />
+        
         {currentPost.replies.map((reply) => (
+            
+            // <Box key={reply._id} pl={3.5} pr={3.5}>
+
           <Comment
             key={reply._id}
             reply={reply}
@@ -186,9 +186,25 @@ const PostPage = () => {
               currentPost.replies[currentPost.replies.length - 1]._id
             }
           />
+          // </Box>
         ))}
       </Box>
-    </Box>
+      <Box
+      height={"100vh"}
+      borderLeft={"1px solid"}
+      borderColor={"whiteAlpha.300"}
+      py={8}
+      position={"sticky"}
+      top={0}
+      left={0}
+      m={0}
+      px={{ base: 4, md: 4 }}
+      flex={30}
+      display={{base: "none", md: "block"}}
+      >
+        <SuggestedUsers />
+      </Box>
+    </Flex>
   );
 };
 

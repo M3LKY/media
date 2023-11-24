@@ -203,7 +203,7 @@ const updateUser = async (req, res) => {
     // password should be null in response
     user.password = null;
 
-    res.status(200).json(user);
+    res.status(200).json({good: "good"});
   } catch (err) {
     res.status(500).json({ error: err.message });
     console.log("Error in updateUser: ", err.message);

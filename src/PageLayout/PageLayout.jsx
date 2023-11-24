@@ -9,16 +9,23 @@ const PageLayout = ({ children }) => {
   const user = useRecoilValue(userAtom);
 
   return (
+<Box
+  display={{base: "", md: "flex"}}
+  alignItems="center"
+  justifyContent="center"
+>
     <Flex>
-      {pathname !== "/auth" && user !== null ? (
-        <Box w={{ base: "70px", md: "240px" }}>
-          <Sidebar user={user} />
-        </Box>
-      ) : null}
+    {pathname !== "/auth" && pathname !== "/update" && user !== null ? (
+  <Box w={{ base: "70px", sm: "70px", md: "240px" }} m={{base: "0", md: "-4"}}>
+    <Sidebar user={user} />
+  </Box>
+) : null}
+
       <Box flex={1} w={{ base: "calc(100% - 70px)", md: "calc(100% - 240px)" }} >
         {children}
       </Box>
     </Flex>
+    </Box>
   );
 };
 

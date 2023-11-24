@@ -170,11 +170,13 @@ const ChatPage = () => {
   };
 
   return (
+    <Box pt={10} w={{base:"auto", md:"980px"}} >
     <Box
       position={"absolute"}
       left={"50%"}
       w={{ base: "100%", md: "90%" }}
       p={4}
+      pt={10}
       transform={"translateX(-50%)"}
     >
       <Flex
@@ -189,7 +191,7 @@ const ChatPage = () => {
         <Flex flex={30} gap={2} flexDirection={"column"} w={"full"} mx={"auto"}>
           <Text
             fontWeight={700}
-            color={useColorModeValue("gray.600", "gray.400")}
+            color={useColorModeValue("green.400", "green.100")}
           >
             Your Conversations
           </Text>
@@ -256,6 +258,7 @@ const ChatPage = () => {
 
         {selectedConversation._id && <MessageContainer />}
       </Flex>
+    </Box>
     </Box>
   );
 };

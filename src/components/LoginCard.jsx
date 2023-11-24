@@ -80,6 +80,7 @@ export default function LoginCard() {
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.dark")}
           boxShadow={"lg"}
+          borderRadius={20}
           p={8}
           w={{
             base: "full",
@@ -131,10 +132,13 @@ export default function LoginCard() {
                   type="submit"
                   loadingText="Logging in"
                   size="lg"
-                  bg={useColorModeValue("gray.600", "gray.700")}
+                  bg="Black"
                   color={"white"}
+                  border={"1px solid white"}
+                  borderRadius={20}
                   _hover={{
-                    bg: useColorModeValue("gray.700", "gray.800"),
+                    color:"yellow",
+                  border:"1px solid yellow"
                   }}
                   isLoading={loading}
                 >
@@ -145,7 +149,7 @@ export default function LoginCard() {
                 <Text align={"center"}>
                   Don&apos;t have an account?{" "}
                   <Link
-                    color={"blue.400"}
+                    color={"yellow"}
                     onClick={() => setAuthScreen("signup")}
                   >
                     Sign up

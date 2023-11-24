@@ -141,9 +141,11 @@ const MessageContainer = () => {
     <Flex
       flex="70"
       bg={useColorModeValue("gray.200", "gray.dark")}
-      borderRadius={"md"}
+      borderRadius={"20"}
+      border={"1px solid green"}
       p={2}
       flexDirection={"column"}
+      
     >
       {/* Message header */}
       <Flex w={"full"} h={12} alignItems={"center"} gap={2}>

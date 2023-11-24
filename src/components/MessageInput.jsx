@@ -129,7 +129,7 @@ const MessageInput = ({ setMessages }) => {
         }}
       >
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={"black"} color={"white"} borderRadius={20} border={"1px solid white"}>
           <ModalHeader></ModalHeader>
           <ModalCloseButton />
           <ModalBody>

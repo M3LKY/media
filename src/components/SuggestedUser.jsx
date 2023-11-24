@@ -11,8 +11,16 @@ const SuggestedUser = ({ user, onClose }) => {
   return (
     <Flex gap={2} justifyContent={"space-between"} alignItems={"center"}>
       {/* left side */}
-      <Flex gap={2} as={Link} to={`${user.username}`} onClick={handleClose}>
+      
+    <Link to={`/${user.username}`}>
+      <Flex gap={2} onClick={handleClose}>
+        
+        {!user.profilePic && (
+        <Avatar src={"/person.jpg"} />
+        )}
+        {user.profilePic && (
         <Avatar src={user.profilePic} />
+        )}
         <Box>
           <Text fontSize={"sm"} fontWeight={"bold"}>
             {user.username}
@@ -21,16 +29,20 @@ const SuggestedUser = ({ user, onClose }) => {
             {user.name}
           </Text>
         </Box>
+        
       </Flex>
+      </Link>
       {/* right side */}
       <Button
         size={"sm"}
-        color={following ? "black" : "white"}
-        bg={following ? "white" : "blue.400"}
+        color={following ? "white" : "black"}
+        bg={following ? "black" : "white"}
+        
         onClick={handleFollowUnfollow}
         isLoading={updating}
+        borderRadius={20}
         _hover={{
-          color: following ? "black" : "white",
+          color: following ? "white" : "green.800",
           opacity: ".8",
         }}
       >

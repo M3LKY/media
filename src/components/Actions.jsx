@@ -3,7 +3,6 @@ import {
   Button,
   Flex,
   FormControl,
-  Input,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,6 +11,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
@@ -201,25 +201,27 @@ const Actions = ({ post }) => {
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent bg={"#000300"}>
+        <ModalContent bg={"black"} color={"white"} borderRadius={20} border={"1px solid gray"}>
           <ModalHeader></ModalHeader>
           <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
             <FormControl>
-              <Input
+              <Textarea
                 placeholder="Reply goes here.."
                 value={reply}
                 onChange={(e) => setReply(e.target.value)}
                 mt={3}
-                border="1px solid gray"
               />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
             <Button
-              colorScheme="gray"
-              size={"sm"}
+              colorScheme="white"
+              color={"black"}
+              borderRadius={20}
+              bg={"gray.300"}
+              
               pb={0.5}
               isLoading={isReplying}
               onClick={handleReply}

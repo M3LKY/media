@@ -35,7 +35,7 @@ export default function UpdateProfilePage() {
   const { handleImageChange, imgUrl } = usePreviewImg();
   const handleCancel = () => {
     navigate(`/${user.username}`);
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,28 +43,40 @@ export default function UpdateProfilePage() {
     setUpdating(true);
     try {
       const jdata = JSON.parse(localStorage.getItem("user-threads"));
-        const token = jdata.token;
-      const res = await fetch(import.meta.env.VITE_CONNECTO_API + `/api/users/update/${user._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          credentials: "include",
-          Authorization: `Bearer ${token}`,
-      },
-        body: JSON.stringify({ ...inputs, profilePic: imgUrl }),
-      });
+      const token = jdata.token;
+      const res = await fetch(
+        import.meta.env.VITE_CONNECTO_API + `/api/users/update/${user._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            credentials: "include",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ ...inputs, profilePic: imgUrl }),
+        }
+      );
       const data = await res.json(); // updated user object
       if (data.error) {
         showToast("Error", data.error, "error");
         return;
       }
-      showToast("Updated", "Profile updated successfully", "info", "left-accent");
+      showToast(
+        "Updated",
+        "Profile updated successfully",
+        "info",
+        "left-accent"
+      );
       setUser(data);
       localStorage.setItem("user-threads", JSON.stringify(data));
-    navigate(`/${user.username}`);
+      navigate(`/${user.username}`);
     } catch (error) {
-      showToast("Error", error.message || "An error occurred", "error", "left-accent");
-
+      showToast(
+        "Error",
+        error.message || "An error occurred",
+        "error",
+        "left-accent"
+      );
     } finally {
       setUpdating(false);
     }
@@ -82,7 +94,7 @@ export default function UpdateProfilePage() {
           p={6}
         >
           <Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-            User Profile Edit
+            Update Profile
           </Heading>
           <FormControl id="userName">
             <Stack direction={["column", "row"]} spacing={6}>
@@ -95,7 +107,7 @@ export default function UpdateProfilePage() {
               </Center>
               <Center w="full">
                 <Button w="full" onClick={() => fileRef.current.click()}>
-                  Change Avatar
+                  Change Picture
                 </Button>
                 <Input
                   type="file"
@@ -169,7 +181,7 @@ export default function UpdateProfilePage() {
               onClick={handleCancel}
               _hover={{
                 bg: "red.700",
-                color:"white"
+                color: "white",
               }}
             >
               Cancel
@@ -178,11 +190,10 @@ export default function UpdateProfilePage() {
               colorScheme=""
               color={"green"}
               border="1px solid green"
-
               w="full"
               _hover={{
                 bg: "green.700",
-                color: "white"
+                color: "white",
               }}
               type="submit"
               isLoading={updating}

@@ -71,6 +71,8 @@ export default function SignupCard() {
           rounded={"lg"}
           bg={useColorModeValue("white", "gray.dark")}
           boxShadow={"lg"}
+          borderRadius={20}
+
           p={8}
         >
           <Stack spacing={4}>
@@ -136,10 +138,14 @@ export default function SignupCard() {
               <Button
                 loadingText="Submitting"
                 size="lg"
-                bg={useColorModeValue("gray.600", "gray.700")}
+                borderRadius={20}
+                bg="Black"
                 color={"white"}
+                border={"1px solid white"}
+                
                 _hover={{
-                  bg: useColorModeValue("gray.700", "gray.800"),
+                  color:"yellow",
+                border:"1px solid yellow"
                 }}
                 onClick={handleSignup}
               >
@@ -149,7 +155,8 @@ export default function SignupCard() {
             <Stack pt={6}>
               <Text align={"center"}>
                 Already a user?{" "}
-                <Link color={"blue.400"} onClick={() => setAuthScreen("login")}>
+                <Link                     color={"yellow"}
+ onClick={() => setAuthScreen("login")}>
                   Login
                 </Link>
               </Text>

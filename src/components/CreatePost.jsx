@@ -127,7 +127,7 @@ const CreatePost = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
 
-        <ModalContent bg={"black"} color={"white"}>
+        <ModalContent bg={"black"} color={"white"} borderRadius={20} border={"1px solid teal"}>
           <ModalHeader>Create Post</ModalHeader>
           <ModalCloseButton color={"red"} />
           <ModalBody pb={6}>
@@ -179,6 +179,7 @@ const CreatePost = () => {
 
           <ModalFooter>
             <Button
+            borderRadius={20}
               colorScheme="teal"
               onClick={handleCreatePost}
               isLoading={loading}

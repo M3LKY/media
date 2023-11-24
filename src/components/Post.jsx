@@ -92,7 +92,10 @@ const Post = ({ post, postedBy }) => {
 
   if (!user) return null;
   return (
+    <Box w={{base:"full", md:"600px"}} borderBottom={"1px solid"}
+    borderColor={"whiteAlpha.300"}  pl={3.5} pr={4}>
     <Link to={`/${user.username}/post/${post._id}`}>
+      
       <Flex gap={3} mb={4} py={5}>
         <Flex flexDirection={"column"} alignItems={"center"}>
           <Avatar
@@ -175,10 +178,10 @@ const Post = ({ post, postedBy }) => {
             </Flex>
           </Flex>
 
-          <Text fontSize={"sm"}>{post.text}</Text>
+          <Text fontSize={"md"} p={0.5}>{post.text}</Text>
           {post.img && (
             <Box
-              borderRadius={6}
+              borderRadius={20}
               overflow={"hidden"}
               border={"1px solid"}
               borderColor={"gray.light"}
@@ -193,6 +196,7 @@ const Post = ({ post, postedBy }) => {
         </Flex>
       </Flex>
     </Link>
+    </Box>
   );
 };
 
