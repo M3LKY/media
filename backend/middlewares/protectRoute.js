@@ -2,22 +2,32 @@ import User from "../Schema/userTables.js";
 import jwt from "jsonwebtoken";
 
 const protectRoute = async (req, res, next) => {
-	try {
-		const token = req.cookies.jwt;
+  try {
+    const authorizationHeader = req.headers.authorization;
 
-		if (!token) return res.status(401).json({ message: "Unauthorized" });
+    if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
+      res.status(200).json({ "wrong Headers": req.headers });
 
-		const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      return res.status(401).json({ message: "Unauthorized" });
+    }
 
-		const user = await User.findById(decoded.userId).select("-password");
+    // Extract the token from the Authorization header
+    const token = authorizationHeader.split(" ")[1];
 
-		req.user = user;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-		next();
-	} catch (err) {
-		res.status(500).json({ message: err.message });
-		console.log("Error in signupUser: ", err.message);
-	}
+    const user = await User.findById(decoded.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    req.user = user;
+    next();
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+    console.log("Error in protectRoute: ", err.message);
+  }
 };
 
 export default protectRoute;
